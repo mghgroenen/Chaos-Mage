@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import tkinter as tk
@@ -34,17 +34,20 @@ def reset():
     button_iconic2.config(bg="purple", fg="white", relief=tk.RAISED)
     
     create_upcoming()
+    button_next.config(state=tk.NORMAL)
     label_arrow.grid_forget()
 
 def next_spell():
     global upcoming
-    if len(spell_list) > 0:
-        upcoming = spell_list.pop(random.randint(0,len(spell_list)-1))
-    else:
-        upcoming = 0
-        label_arrow.grid(row=0, column=0, padx=(0,10), sticky="e")
+    if len(spell_list) > 1:
+        upcoming = spell_list.pop(random.randint(0,len(spell_list)-1))        
     label_upcoming.destroy()
     create_upcoming(upcoming)
+    
+    if len(spell_list) < 2:
+        upcoming = 0
+        button_next.config(state=tk.DISABLED)
+        label_arrow.grid(row=0, column=0, padx=(0,10), sticky="e")
 
 #------------Display frames--------------
 display = tk.Frame(master=window, bg="#404040", relief=tk.RIDGE, borderwidth=7)
